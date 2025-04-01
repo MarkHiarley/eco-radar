@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
@@ -10,8 +10,8 @@ interface MarkerData {
   longitude: number;
 }
 
-export default function MapComponent({ markerList = [] }){
-  if (typeof window !== 'undefined') {
+export default function MapComponent({ markerList = [] }) {
+  if (typeof window !== "undefined") {
     const customMarkerIcon = L.icon({
       iconUrl: markerIcon.src,
       iconRetinaUrl: markerIcon2x.src || markerIcon2x,
@@ -22,7 +22,7 @@ export default function MapComponent({ markerList = [] }){
       tooltipAnchor: [16, -28],
       shadowSize: [41, 41],
     });
-    
+
     L.Marker.prototype.options.icon = customMarkerIcon;
   }
 
@@ -31,7 +31,7 @@ export default function MapComponent({ markerList = [] }){
       center={[-3.718, -38.543]}
       zoom={13}
       scrollWheelZoom={true}
-      style={{ height: "100%", width: "100%" }}
+      className="h-full w-full"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -54,4 +54,4 @@ export default function MapComponent({ markerList = [] }){
       )}
     </MapContainer>
   );
-};
+}
