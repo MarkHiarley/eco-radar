@@ -6,6 +6,7 @@ const MapInMaps = () => {
         </div>
 
         /**"w-full h-full object-cover" Tailwind que tem que ser usado no negocio do mapa */
+        
     )
 }
 
