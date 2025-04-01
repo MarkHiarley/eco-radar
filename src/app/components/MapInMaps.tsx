@@ -1,12 +1,55 @@
+"use client";
+import { useEffect, useState } from "react";
+import "leaflet/dist/leaflet.css";
+import dynamic from "next/dynamic";
 
-const MapInMaps = () => {
+const MapComponentWithNoSSR = dynamic(
+  () => import("./MapComponent"),
+  {
+    ssr: false,
+  }
+);
+
+export default function MapInMaps() {
+  const [markerList, setMarkerList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/get-data");
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log(data);
+        setMarkerList(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError(String(error));
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (error) {
+    return <div>Erro: {error}</div>;
+  }
+
+  if(loading){
     return (
-        <div className="flex flex-col justify-center items-center w-full h-full">
-            <img src="https://pm1.aminoapps.com/8213/d1d6963a50a6647a7ede906863cbec1279b50ce6r1-300-168v2_00.jpg" alt="teste" className="w-full h-full object-cover" />
-        </div>
+      <div className="flex justify-center items-center w-full h-full">
+        <div className="loader">Carregando mapa...</div>
+      </div>
+    );
+  }
 
-        /**"w-full h-full object-cover" Tailwind que tem que ser usado no negocio do mapa */
-    )
+  return (
+    <div className="w-full h-full object-cover">
+      <MapComponentWithNoSSR markerList={markerList} />
+    </div>
+  );
 }
-
-export default MapInMaps;

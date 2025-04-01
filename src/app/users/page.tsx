@@ -1,3 +1,5 @@
+"use client"
+
 import LateralBar from "../components/LateralBar";
 import MapInMaps from "../components/MapInMaps";
 export default function Users() {
