@@ -11,7 +11,7 @@ const LateralBar = () => {
 
         <div className="flex">
             <div
-                className={`h-screen transition-all duration-300 ${isOpen ? "w-64 items-start" : "w-16 items-center"
+                className={`h-screen transition-all duration-300 ${isOpen ? "w-64 items-start" : "w-16 items-start"
                     } bg-black gap-8 flex flex-col p-3`}>
                 <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none">
                     <BiCircle className="h-8 w-8 text-white" />
