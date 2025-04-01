@@ -2,40 +2,34 @@
 
 import { useState } from "react";
 import { BiCircle, BiHome, BiBell } from "react-icons/bi";
+import { IoExitOutline } from "react-icons/io5";
+import { MdOutlineBugReport } from "react-icons/md";
 const LateralBar = () => {
     const [isOpen, setIsOpen] = useState(true);
-
+    const alignmentClass = isOpen ? "items-start" : "items-center";
     return (
+
         <div className="flex">
             <div
-                
-                className={`h-screen transition-all duration-300 ${isOpen ? "w-64" : "w-16"
-                    } bg-black gap-8 flex flex-col p-3 items-center`}>
-                <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none" >
+                className={`h-screen transition-all duration-300 ${isOpen ? "w-64 items-start" : "w-16 items-center"
+                    } bg-black gap-8 flex flex-col p-3`}>
+                <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none">
                     <BiCircle className="h-8 w-8 text-white" />
                 </button>
-                <button className="p-2 focus:outline-none" >
+                <button className={`p-2 focus:outline-none ${isOpen ? "self-start" : ""}`}>
                     <BiHome className="text-white h-8 w-8" />
                 </button>
-                <button className="p-2 focus:outline-none" >
+                <button className={`p-2 focus:outline-none ${isOpen ? "self-start" : ""}`}>
                     <BiBell className="text-white h-8 w-8" />
                 </button>
-
-
-                {isOpen && (
-                    <div>
-                        <h1 className="text-2xl font-bold text-center">Lateral Bar</h1>
-                        <ul className="list-disc pl-5">
-                            <li></li>
-                            <li>Item 2</li>
-                            <li>Item 3</li>
-                        </ul>
-                    </div>
-                )}
+                <button className={`p-2 focus:outline-none ${isOpen ? "self-start" : ""}`}>
+                    <MdOutlineBugReport className="text-white h-8 w-8" />
+                </button>
+                <button className={`p-2 focus:outline-none ${isOpen ? "self-start" : ""}`}>
+                    <IoExitOutline className="text-white h-8 w-8" />
+                </button>
             </div>
-            <div className="flex-1 bg-white">
 
-            </div>
         </div>
     );
 };
