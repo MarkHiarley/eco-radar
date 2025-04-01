@@ -6,7 +6,7 @@ export default function Users() {
             <div>
                 <LateralBar />
             </div>
-            <div>
+            <div className="flex-1">
                 <MapInMaps />
             </div>
         </div>
