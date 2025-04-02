@@ -22,8 +22,8 @@ export default function Home() {
         </div>
 
 
-        <div className="flex flex-col justify-center items-center w-full lg:w-1/2 px-4">
-          <MapMundi />
+        <div className="flex flex-col justify-center items-center w lg:w-1/2 px-4">
+          <MapMundi/>
         </div>
       </div>
     </div>
