@@ -45,8 +45,13 @@ export default function MapComponent({ markerList = [] }) {
       nivelQueimada = "Extrema ⚠️";
     }
 
-    return <p><b>Essa queimada é considerada uma queimada de nível:</b> {nivelQueimada}</p>;
-  }
+    return (
+      <p>
+        <b>Essa queimada é considerada uma queimada de nível:</b>{" "}
+        {nivelQueimada}
+      </p>
+    );
+  };
 
   return (
     <MapContainer
@@ -69,9 +74,7 @@ export default function MapComponent({ markerList = [] }) {
             position={[marker.latitude, marker.longitude]}
             icon={customIcon(marker.frp)}
           >
-            <Popup>
-              {customPopUp(marker.frp)}
-            </Popup>
+            <Popup>{customPopUp(marker.frp)}</Popup>
           </Marker>
         ))
       ) : (
