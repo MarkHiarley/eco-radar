@@ -1,9 +1,10 @@
 "use client";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
-// import markerIcon from "leaflet/dist/images/marker-icon.png";
-// import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-// import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import PinAmarelo from "@/app/assets/pin-amarelo.png";
+import PinLaranja from "@/app/assets/pin-laranja.png";
+import PinVermelho from "@/app/assets/pin-vermelho.png";
+import PinRoxo from "@/app/assets/pin-roxo.png";
 
 interface MarkerData {
   latitude: number;
@@ -12,29 +13,23 @@ interface MarkerData {
 }
 
 export default function MapComponent({ markerList = [] }) {
-  // if (typeof window !== "undefined") {
-  //   const customMarkerIcon = L.icon({
-  //     iconUrl: markerIcon.src,
-  //     iconRetinaUrl: markerIcon2x.src || markerIcon2x,
-  //     shadowUrl: markerShadow.src || markerShadow,
-  //     iconSize: [25, 41],
-  //     iconAnchor: [12, 41],
-  //     popupAnchor: [1, -34],
-  //     tooltipAnchor: [16, -28],
-  //     shadowSize: [41, 41],
-  //   });
+  const customIconColor = (frp: number) => {
+    let PinImage;
+    if (frp < 5) {
+      PinImage = PinAmarelo;
+    } else if (frp < 20 && frp >= 5) {
+      PinImage = PinLaranja;
+    } else if (frp < 50 && frp >= 20) {
+      PinImage = PinVermelho;
+    } else {
+      PinImage = PinRoxo;
+    }
 
-  //   L.Marker.prototype.options.icon = customMarkerIcon;
-  // }
-
-  const createColoredIcon = () => {
-    return L.divIcon({
-      html: `
-        <div class="marker bg-blue-500"></div>
-      `,
-      iconSize: [24, 24],
-      iconAnchor: [12, 12],
-      popupAnchor: [0, -12]
+    return new L.Icon({
+      iconUrl: PinImage.src,
+      iconSize: [48, 48],
+      iconAnchor: [22, 38],
+      popupAnchor: [-3, -76],
     });
   };
 
@@ -51,14 +46,18 @@ export default function MapComponent({ markerList = [] }) {
       />
       {markerList.length > 0 ? (
         markerList.map((marker: MarkerData, index) => (
-          <Marker key={index} position={[marker.latitude, marker.longitude] } icon={createColoredIcon()}>
+          <Marker
+            key={index}
+            position={[marker.latitude, marker.longitude]}
+            icon={customIconColor(marker.frp)}
+          >
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              {marker.frp} <br /> Easily customizable.
             </Popup>
           </Marker>
         ))
       ) : (
-        <Marker position={[-3.718, -38.543]} icon={createColoredIcon()}>
+        <Marker position={[-3.718, -38.543]} icon={customIconColor(1)}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>
