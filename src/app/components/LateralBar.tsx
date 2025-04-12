@@ -5,7 +5,7 @@ import { BiCircle, BiHome, BiBell } from "react-icons/bi";
 import { IoExitOutline } from "react-icons/io5";
 import { MdOutlineBugReport } from "react-icons/md";
 const LateralBar = () => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const buttonLabels = [
         { icon: <BiHome className="text-white h-8 w-8" />, label: "Propriedades" },
         { icon: <BiBell className="text-white h-8 w-8" />, label: "Notificações" },
