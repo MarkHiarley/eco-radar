@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BiCircle, BiHome, BiBell } from "react-icons/bi";
 import { IoExitOutline } from "react-icons/io5";
 import { MdOutlineBugReport } from "react-icons/md";
+import { abreLateral } from "../utils/abreLateral";
 const LateralBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const buttonLabels = [
@@ -16,12 +17,12 @@ const LateralBar = () => {
     ]
 
     return (
-        <div className="flex">
+        <div className="md:flex hidden">
             <div
                 className={`h-screen transition-all duration-300 ${isOpen ? "w-64 items-start" : "w-18 items-start"
                     } bg-black gap-8 flex flex-col p-3`}>
                 <div>
-                    <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none cursor-pointer">
+                    <button onClick={() => abreLateral(isOpen, setIsOpen)} className="p-2 focus:outline-none cursor-pointer">
                         <BiCircle className="h-8 w-8 text-white" />
                     </button>
                     

@@ -5,6 +5,7 @@ import PinAmarelo from "@/app/assets/pin-amarelo.png";
 import PinLaranja from "@/app/assets/pin-laranja.png";
 import PinVermelho from "@/app/assets/pin-vermelho.png";
 import PinRoxo from "@/app/assets/pin-roxo.png";
+import ButtonMobile from "./ButtonMobile";
 
 interface MarkerData {
   latitude: number;
@@ -12,7 +13,10 @@ interface MarkerData {
   frp: number;
 }
 
+import { useState } from "react";
+
 export default function MapComponent({ markerList = [] }) {
+  const [isOpen, setIsOpen] = useState(false);
   const customIcon = (frp: number) => {
     let PinImage;
     if (frp < 5) {
@@ -84,6 +88,13 @@ export default function MapComponent({ markerList = [] }) {
           </Popup>
         </Marker>
       )}
+
+
+
+      <ButtonMobile />
+
+
+
     </MapContainer>
   );
 }
