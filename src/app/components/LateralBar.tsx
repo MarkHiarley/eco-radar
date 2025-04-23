@@ -15,13 +15,13 @@ const LateralBar = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (state:
     ];
 
     return (
-        <div className={`${isOpen ? "flex" : "hidden"} md:flex`}>
+            
             <div
-                className={`h-screen transition-all duration-300 ${isOpen ? "w-64 items-start" : "w-18 items-start"
-                    } bg-black gap-8 flex flex-col p-3 fixed md:relative`}>
+                className={`h-screen transition-all duration-300 ${isOpen ? "w-64 items-start relative" : "w-18 items-start md:relative max-md:hidden"
+                    } bg-black gap-8 flex flex-col p-3 `}>
                 <div>
-                    <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none cursor-pointer">
-                        <BiCircle className="h-8 w-8 text-white" />
+                    <button className="p-2 focus:outline-none cursor-pointer">
+                        <BiCircle className="h-8 w-8 text-white" onClick={() => setIsOpen(!isOpen)} />
                     </button>
                 </div>
                 {buttonLabels.map((button, index) => (
@@ -41,7 +41,6 @@ const LateralBar = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (state:
                     </div>
                 ))}
             </div>
-        </div>
     );
 
     
