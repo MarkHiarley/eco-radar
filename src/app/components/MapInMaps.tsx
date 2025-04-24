@@ -33,7 +33,15 @@ export default function MapInMaps() {
   }, []);
 
   if (error) {
-    return <div>Erro: {error}</div>;
+    return(
+    <div className="flex justify-center items-center w-full h-full text-center">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-3xl font-bold text-red-500">Erro ao carregar o mapa</h1>
+        <h2 className="text-2xl">Tente novamente mais tarde</h2>
+        <p className="text-gray-700 text-sm">{error}</p>
+      </div>
+    </div>
+    )
   }
 
   if (loading) {
