@@ -25,7 +25,7 @@ const LateralBar = ({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (state:
                     </button>
                 </div>
                 {buttonLabels.map((button, index) => (
-                    <div key={index} className="flex items-center cursor-pointer">
+                    <div key={index} className="flex items-center cursor-pointer text-nowrap">
                         <button className={`p-2 focus:outline-none ${isOpen ? "self-start" : ""}`}>
                             {button.icon}
                         </button>
