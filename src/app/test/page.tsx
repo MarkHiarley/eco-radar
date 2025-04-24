@@ -7,6 +7,7 @@ export default function TestPage() {
 if(!session){
     return(
         <div>
+
     <h1>Não logado</h1>
     <button onClick={() => signIn("google")}>loge</button>
     </div>
