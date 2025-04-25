@@ -1,9 +1,13 @@
 "use client"
 import { useSession, signIn } from "next-auth/react";
+import dynamic from 'next/dynamic';
+const SetLocal = dynamic(() => import('../components/SetLocal'), {
+    ssr: false,
+});
 
 export default function TestPage() {
-    const {data: session} = useSession();
-
+    const { data: session } = useSession();
+    {/** 
 if(!session){
     return(
         <div>
@@ -12,12 +16,11 @@ if(!session){
     <button onClick={() => signIn("google")}>loge</button>
     </div>
 )
-}
+*/}
 
     return (
-        <div>
-        <h1>Test Page</h1>
-        <p>This is a test page.</p>
+        <div className="flex-1">
+            <SetLocal />
         </div>
-    );
+    )
 }
