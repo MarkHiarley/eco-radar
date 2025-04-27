@@ -1,9 +1,12 @@
 "use client";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
-// import markerIcon from "leaflet/dist/images/marker-icon.png";
-// import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-// import markerShadow from "leaflet/dist/images/marker-shadow.png";
+import PinAmarelo from "@/app/assets/pin-amarelo.png";
+import PinLaranja from "@/app/assets/pin-laranja.png";
+import PinVermelho from "@/app/assets/pin-vermelho.png";
+import PinRoxo from "@/app/assets/pin-roxo.png";
+import ButtonMobile from "./ButtonMobile";
+import LateralBar from "./LateralBar";
 
 interface MarkerData {
   latitude: number;
@@ -11,59 +14,87 @@ interface MarkerData {
   frp: number;
 }
 
+import { useState } from "react";
+
 export default function MapComponent({ markerList = [] }) {
-  // if (typeof window !== "undefined") {
-  //   const customMarkerIcon = L.icon({
-  //     iconUrl: markerIcon.src,
-  //     iconRetinaUrl: markerIcon2x.src || markerIcon2x,
-  //     shadowUrl: markerShadow.src || markerShadow,
-  //     iconSize: [25, 41],
-  //     iconAnchor: [12, 41],
-  //     popupAnchor: [1, -34],
-  //     tooltipAnchor: [16, -28],
-  //     shadowSize: [41, 41],
-  //   });
+  const [isOpen, setIsOpen] = useState(false);
+  const customIcon = (frp: number) => {
+    let PinImage;
+    if (frp < 5) {
+      PinImage = PinAmarelo;
+    } else if (frp < 20 && frp >= 5) {
+      PinImage = PinLaranja;
+    } else if (frp < 50 && frp >= 20) {
+      PinImage = PinVermelho;
+    } else {
+      PinImage = PinRoxo;
+    }
 
-  //   L.Marker.prototype.options.icon = customMarkerIcon;
-  // }
-
-  const createColoredIcon = () => {
-    return L.divIcon({
-      html: `
-        <div class="marker bg-blue-500"></div>
-      `,
-      iconSize: [24, 24],
-      iconAnchor: [12, 12],
-      popupAnchor: [0, -12]
+    return new L.Icon({
+      iconUrl: PinImage.src,
+      iconSize: [48, 48],
+      iconAnchor: [22, 38],
+      popupAnchor: [2, -36],
     });
   };
 
+  const customPopUp = (frp: number) => {
+    let nivelQueimada;
+    if (frp < 5) {
+      nivelQueimada = "Baixo";
+    } else if (frp < 20 && frp >= 5) {
+      nivelQueimada = "Média";
+    } else if (frp < 50 && frp >= 20) {
+      nivelQueimada = "Grande ⚠️";
+    } else {
+      nivelQueimada = "Extrema ⚠️";
+    }
+
+    return (
+      <p>
+        <b>Essa queimada é considerada uma queimada de nível:</b>{" "}
+        {nivelQueimada}
+      </p>
+    );
+  };
+
   return (
-    <MapContainer
-      center={[-3.718, -38.543]}
-      zoom={13}
-      scrollWheelZoom={true}
-      className="h-full w-full"
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {markerList.length > 0 ? (
-        markerList.map((marker: MarkerData, index) => (
-          <Marker key={index} position={[marker.latitude, marker.longitude] } icon={createColoredIcon()}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        ))
-      ) : (
-        <Marker position={[-3.718, -38.543]} icon={createColoredIcon()}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-      )}
-    </MapContainer>
+    <div className="h-screen w-screen flex flex-row">
+      <>
+      <LateralBar isOpen={isOpen} setIsOpen={setIsOpen} />
+        <MapContainer
+          center={[-3.718, -38.543]}
+          zoom={13}
+          minZoom={4}
+          maxZoom={18}
+          scrollWheelZoom={true}
+          className="h-full w-full"
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            noWrap={true}
+          />
+          {markerList.length > 0 ? (
+            markerList.map((marker: MarkerData, index) => (
+              <Marker
+                key={index}
+                position={[marker.latitude, marker.longitude]}
+                icon={customIcon(marker.frp)}
+              >
+                <Popup>{customPopUp(marker.frp)}</Popup>
+              </Marker>
+            ))
+          ) : (
+            <Marker position={[-3.718, -38.543]} icon={customIcon(1)}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          )}
+          <ButtonMobile toggleSidebar={() => setIsOpen(!isOpen)} />
+        </MapContainer>
+      </>
+    </div>
   );
 }

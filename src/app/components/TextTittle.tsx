@@ -7,10 +7,11 @@ const TextTittle = () => {
     </h1>
     <h2
       className="textBackground font-bold">
-        Detecção de incêndios florestais em tempo real
+        Detecção de incêndios em tempo real
     </h2>
 </div>
   );
 };
+
 
 export default TextTittle;

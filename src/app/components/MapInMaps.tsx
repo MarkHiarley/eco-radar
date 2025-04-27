@@ -3,12 +3,9 @@ import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import dynamic from "next/dynamic";
 
-const MapComponentWithNoSSR = dynamic(
-  () => import("./MapComponent"),
-  {
-    ssr: false,
-  }
-);
+const MapComponentWithNoSSR = dynamic(() => import("./MapComponent"), {
+  ssr: false,
+});
 
 export default function MapInMaps() {
   const [markerList, setMarkerList] = useState([]);
@@ -36,13 +33,25 @@ export default function MapInMaps() {
   }, []);
 
   if (error) {
-    return <div>Erro: {error}</div>;
+    return(
+    <div className="flex justify-center items-center w-full h-full text-center">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-3xl font-bold text-red-500">Erro ao carregar o mapa</h1>
+        <h2 className="text-2xl">Tente novamente mais tarde</h2>
+        <p className="text-gray-700 text-sm">{error}</p>
+      </div>
+    </div>
+    )
   }
 
-  if(loading){
+  if (loading) {
     return (
       <div className="flex justify-center items-center w-full h-full">
-        <div className="loader">Carregando mapa...</div>
+        <div className="flex flex-row gap-2">
+          <div className="w-4 h-4 rounded-full bg-gray-500 animate-bounce"></div>
+          <div className="w-4 h-4 rounded-full bg-gray-500 animate-bounce [animation-delay:-.3s]"></div>
+          <div className="w-4 h-4 rounded-full bg-gray-500 animate-bounce [animation-delay:-.5s]"></div>
+        </div>
       </div>
     );
   }

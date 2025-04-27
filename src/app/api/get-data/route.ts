@@ -3,6 +3,12 @@ import { parse } from "csv-parse/sync";
 import dayjs from "dayjs";
 
 export async function GET() {
+  if(!process.env.NASA_API_KEY){
+    return NextResponse.json(
+      { error: "API key not found" },
+      { status: 401 }
+    );
+  }
   try {
     const dataAtual = dayjs().format("YYYY-MM-DD");
 
