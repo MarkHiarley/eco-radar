@@ -71,7 +71,9 @@ const LateralBar = ({
           {isOpen && <span className="text-white ml-2">{button.label}</span>}
         </div>
       ))}
+      
     </div>
+
   );
 };
 

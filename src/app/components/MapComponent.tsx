@@ -15,8 +15,10 @@ interface MarkerData {
 }
 
 import { useState } from "react";
+import SetLocal from "./SetLocal";
 
 export default function MapComponent({ markerList = [] }) {
+  const [openPopup, setOpenPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const customIcon = (frp: number) => {
     let PinImage;
@@ -93,8 +95,23 @@ export default function MapComponent({ markerList = [] }) {
             </Marker>
           )}
           <ButtonMobile toggleSidebar={() => setIsOpen(!isOpen)} />
+
+         
         </MapContainer>
+        <button
+          className="absolute top-4 right-4 z-[1000] bg-white border border-gray-300 rounded px-3 py-1 shadow"
+          onClick={() => setOpenPopup((prev) => !prev)}
+        >
+          {openPopup ? "Fechar Localização" : "Abrir Localização"}
+        </button>
+        {openPopup && (
+          <div className="absolute z-[999] rounded">
+            <SetLocal />
+          </div>
+        )}
       </>
+
+      
     </div>
   );
 }

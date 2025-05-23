@@ -35,14 +35,15 @@ const SetLocal = () => {
   }, []);
 
   return (
-    <div className="h-screen w-screen flex justify-center items-center border-2 border-black">
+    <div className="h-screen w-screen flex justify-center items-center   flex-col">
+      <h1 className="text-2xl font-bold mb-4 text-white" >Clique no mapa para definir a localização</h1>
       <MapContainer
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
         minZoom={4}
         maxZoom={18}
         scrollWheelZoom={true}
-        className="w-10/12 h-10/12"
+        className="w-10/12 h-10/12 border-2 border-gray-500"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
