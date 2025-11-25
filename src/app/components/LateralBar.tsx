@@ -1,8 +1,7 @@
 "use client";
 
 import { BiCircle, BiHome, BiBell } from "react-icons/bi";
-import { IoExitOutline } from "react-icons/io5";
-import { MdOutlineBugReport } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const LateralBar = ({
   isOpen,
@@ -11,19 +10,10 @@ const LateralBar = ({
   isOpen: boolean;
   setIsOpen: (state: boolean) => void;
 }) => {
+  const router = useRouter();
   const buttonLabels = [
-    { icon: <BiHome className="text-white h-8 w-8" />, label: "Propriedades" },
-    { icon: <BiBell className="text-white h-8 w-8" />, label: "Notificações" },
-    {
-      icon: <MdOutlineBugReport className="text-white h-8 w-8" />,
-      label: "Reporte Bug",
-    },
-  ];
-  const buttonExit = [
-    {
-      icon: <IoExitOutline className="text-white h-8 w-8 align-bottom" />,
-      label: "Sair",
-    },
+    { icon: <BiHome className="text-white h-8 w-8 cursor-pointer" />, label: "Propriedades" },
+    { icon: <BiBell className="text-white h-8 w-8 cursor-pointer" />, label: "Notificações" },
   ];
 
   return (
@@ -31,7 +21,7 @@ const LateralBar = ({
       className={`h-screen transition-all duration-300 ${
         isOpen
           ? "w-64 items-start relative"
-          : "w-18 items-start md:relative max-md:hidden"
+          : "w-20 items-start md:relative max-md:hidden"
       } bg-black gap-8 flex flex-col p-3 `}
     >
       <div>
@@ -46,6 +36,7 @@ const LateralBar = ({
         <div
           key={index}
           className="flex items-center cursor-pointer text-nowrap"
+          onClick={() => router.push('/desenvolvimento')}
         >
           <button
             className={`p-2 focus:outline-none ${isOpen ? "self-start" : ""}`}
@@ -57,18 +48,6 @@ const LateralBar = ({
               {button.label}
             </span>
           )}
-        </div>
-      ))}
-      {buttonExit.map((button, index) => (
-        <div key={index} className="flex items-center mt-auto cursor-pointer ">
-          <button
-            className={`p-2 focus:outline-none ${
-              isOpen ? "self-baseline" : ""
-            }`}
-          >
-            {button.icon}
-          </button>
-          {isOpen && <span className="text-white ml-2">{button.label}</span>}
         </div>
       ))}
     </div>

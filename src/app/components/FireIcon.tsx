@@ -1,14 +1,15 @@
 
 import React from 'react';
+import Image from 'next/image';
+import Icone from '@/app/assets/ecoradar-icone.png';
 
 const FireIcon = () => {
   return (
     
-      <img 
-        src="https://img.myloview.com.br/posters/fire-logo-vector-flame-logo-design-template-icon-symbol-creative-design-400-235171141.jpg"
-        
-        alt="Fire Icon" 
-        className='w-2/4'
+      <Image 
+        src={Icone}
+        alt="Logo do EcoRadar" 
+        className='w-25'
       />
    
   );

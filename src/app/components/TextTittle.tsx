@@ -6,7 +6,7 @@ const TextTittle = () => {
       EcoRadar
     </h1>
     <h2
-      className="textBackground font-bold">
+      className="textBackground font-bold text-center">
         Detecção de incêndios em tempo real
     </h2>
 </div>
