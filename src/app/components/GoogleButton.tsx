@@ -1,31 +1,21 @@
-'use client'
+"use client";
 import React from "react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import GoogleLogo from "@/app/assets/google-logo.png";
 import Image from "next/image";
 
-
-const GoogleButton = () => {
-  const router = useRouter();
+const GoogleButton = ({ compact = false }: { compact?: boolean }) => {
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <button className="flex flex-row gap-5 items-center px-6 py-2 bg-gray-50 rounded-lg shadow-md hover:bg-gray-300 text-black text-sm sm:text-base md:text-lg lg:text-xl transition-all duration-200 cursor-pointer"
-      onClick={() => {router.push('/desenvolvimento')}}>
-      <Image
-        src={GoogleLogo}
-        alt="Google Logo"
-        width={30}
-        />
-        Conecte-se com Google
-      </button>
-      <button className="px-6 py-2 bg-gray-50 rounded-lg shadow-md hover:bg-gray-300 text-black text-sm sm:text-base md:text-lg lg:text-xl transition-all duration-200 cursor-pointer" 
-      onClick={()=>{
-        router.push('/users')
-      
-      }}>
-        Entrar como visitante
-      </button>
-    </div>
+    <button
+      onClick={() => signIn("google", { callbackUrl: "/desenvolvimento" })}
+      className={`inline-flex items-center gap-3 rounded-md bg-ink text-white font-semibold transition-all duration-200 cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.2)] hover:shadow-[0_4px_16px_-4px_rgba(234,88,12,0.5)] hover:-translate-y-px ${
+        compact ? "px-4 py-2 text-sm" : "px-7 py-3.5 text-base"
+      }`}
+      style={{ background: "#1c1917" }}
+    >
+      <Image src={GoogleLogo} alt="" width={22} height={22} aria-hidden />
+      <span>Entrar com Google</span>
+    </button>
   );
 };
 

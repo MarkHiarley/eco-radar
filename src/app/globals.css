@@ -1,39 +1,198 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --textBackground: linear-gradient(90deg, #D60606, #FF6A00, #FFD700);
-  --textFont: 'Roboto, sans-serif';
+  --paper: #ffffff;
+  --ink: #1c1917;
+  --ink-soft: #57534e;
+  --flame: #ea580c;
+  --flame-deep: #c2410c;
+  --ember: #fbbf24;
+  --line: rgba(28, 25, 23, 0.14);
+  --contour: rgba(28, 25, 23, 0.07);
+
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-archivo), Arial, sans-serif;
+  --font-mono: var(--font-space-mono), ui-monospace, monospace;
 }
 
-:root {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #000000;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
-.textBackground {
-  background: var(--textBackground);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+::selection {
+  background: var(--flame);
+  color: #fff;
 }
 
-.fontRoboto {
-  font-family: var(--textFont);
+:focus-visible {
+  outline: 2px solid var(--flame);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- display lettering (map caps) ---------- */
+.font-display {
+  font-family: var(--font-archivo);
+  font-stretch: 125%;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+.font-mono-lab {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* ---------- flame gradient for live markers ---------- */
+.flame-dot {
+  background: radial-gradient(
+    circle at 40% 35%,
+    #fef3c7 0%,
+    var(--ember) 34%,
+    var(--flame) 68%,
+    #9a3412 100%
+  );
+}
+
+.flame-chip {
+  background: linear-gradient(
+    120deg,
+    var(--ember) 0%,
+    var(--flame) 55%,
+    var(--flame-deep) 100%
+  );
+}
+
+/* ---------- map ground ---------- */
+.map-grid {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 6.25% 6.25%;
+}
+
+.map-frame {
+  border: 1px solid var(--ink);
+  box-shadow: 0 24px 60px -30px rgba(28, 25, 23, 0.25);
+}
+
+.hairline-t {
+  border-top: 1px solid var(--ink);
+}
+
+.hairline-b {
+  border-bottom: 1px solid var(--ink);
+}
+
+/* ---------- hotspot ignition (the one authored moment) ---------- */
+@keyframes ignite {
+  0% {
+    opacity: 0;
+    transform: scale(0.25);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.92;
+    transform: scale(1);
+  }
+}
+
+@keyframes ember {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 9px rgba(234, 88, 12, 0);
+  }
+}
+
+.spot {
+  animation: ignite 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+.spot--live {
+  animation-name: ignite, ember;
+  animation-duration: 900ms, 2400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1), ease-in-out;
+  animation-delay: 0s, 900ms;
+  animation-iteration-count: 1, infinite;
+}
+
+/* ---------- radius circle draw ---------- */
+@keyframes draw-ring {
+  from {
+    stroke-dashoffset: 320;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ring-draw {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  animation: draw-ring 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.scroll-hint {
+  animation: bob 2.2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+/* ---------- live badge blink ---------- */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.blink {
+  animation: blink 1.6s ease-in-out infinite;
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ring-draw {
+    stroke-dashoffset: 0;
+  }
 }

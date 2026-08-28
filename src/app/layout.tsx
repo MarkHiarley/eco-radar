@@ -3,20 +3,13 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SessionWrapper } from "./providers";
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Eco-Radar",
-  description: "Detecção de incendios ",
+  title: "EcoRadar — Veja o fogo antes dele te ver",
+  description:
+    "Monitoramento em tempo real de focos de incêndio no Brasil via satélite da NASA (FIRMS). Cadastre sua localidade e receba o alerta antes do fogo chegar.",
 };
 
 export default function RootLayout({
@@ -25,14 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionWrapper>
-      <html lang="pt-BR">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </html>
-    </SessionWrapper>
+    <html lang="pt-BR">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <SessionWrapper>{children}</SessionWrapper>
+      </body>
+    </html>
   );
 }
