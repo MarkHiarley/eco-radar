@@ -15,7 +15,7 @@ export default function MapInMaps() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://eco-radar-api.hiarley.me/get-data");
+        const response = await fetch("/api/get-data?dias=3");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

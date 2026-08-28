@@ -19,7 +19,7 @@ export default function SignInButton({
       : "border border-[#1c1917] text-[#1c1917] hover:bg-[#1c1917] hover:text-white";
   return (
     <button
-      onClick={() => signIn("google", { callbackUrl: "/desenvolvimento" })}
+      onClick={() => signIn("google", { callbackUrl: "/users" })}
       className={`${base} ${styles} ${className}`}
     >
       {children}

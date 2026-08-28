@@ -47,7 +47,7 @@ export default function Home() {
             ))}
           </div>
           <Link
-            href="/api/auth/signin/google?callbackUrl=/desenvolvimento"
+            href="/api/auth/signin/google?callbackUrl=/users"
             className="rounded-md border border-[#1c1917] px-4 py-2 text-sm font-semibold transition-colors hover:bg-[#1c1917] hover:text-white"
           >
             Entrar
